@@ -1,0 +1,50 @@
+.xh-views{position: relative;background-image: url(../img/index/77.jpg);background-repeat:no-repeat;background-size:cover;background-position:50% 50%; }
+.xh-menu-top{ position: absolute;top:6%;left:5%}
+.xh-menu-top li,.xh-menu-bottom li{
+    height: .65rem;
+    width: .65rem;;
+    margin-bottom: .15rem;
+    position: relative;
+}
+.xh-menu-bottom li{
+    position: relative;
+    margin-top: .15rem;
+    margin-bottom: 0;
+}
+.xh-menu-top li a,.xh-menu-bottom li a{
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-repeat:no-repeat;background-size:cover;background-position:50% 50%;
+}
+.xh-menu-bottom{ position: absolute;bottom:6%;left:5%}
+
+.xh-menu-periphery{position:absolute;top: 1.38rem;left: 1.2rem;z-index:30;width:2.6rem;height: 0.84rem;background: rgba(0,0,0,0.53);font-size:.24rem;padding:.01rem .23rem;border-radius:10px;}
+.xh-menu-periphery li{float: left; display: table; width: 25%; height: 100%; position: relative;}
+.xh-menu-periphery li a{width:100%;height:100%;display:table-cell;vertical-align:middle;text-align:center;}
+.xh-menu-periphery li a b{font-weight:400;font-size: .22rem;vertical-align:top;line-height: 0.3rem;letter-spacing:1px;color: #fff;}
+.xh-menu-periphery li a em{display:block;width: 0.4rem;margin: 0.05rem auto 0.02rem;height: 0.4rem;background-size:contain;background-position:center 0;background-repeat:no-repeat;}
+.xh-menu-periphery li a.icon-home em{background-image:url(../img/icon_down_home.png)}
+.xh-menu-periphery li a.icon-home.selected em{background-image:url(../img/icon_down_home1.png)}
+.xh-menu-periphery li a.icon-home em{background-image:url(../img/in_home.png)}
+.xh-menu-periphery li a.icon-home.selected em{background-image:url(../img/in_home_org.png)}
+.xh-menu-periphery li a.icon-zu em{background-image: url(../img/in_zu.png)}
+.xh-menu-periphery li a.icon-zu.selected em{background-image:url(../img/in_zu_org.png)}
+.xh-menu-periphery li a.icon-rent em{background-image:url(../img/in_rent.png)}
+.xh-menu-periphery li a.icon-rent.selected em{background-image:url(../img/in_rent_org.png)}
+.xh-menu-periphery li a.icon-mine em{background-image:url(../img/in_mine.png)}
+.xh-menu-periphery li a.icon-mine.selected em{background-image:url(../img/in_mine_org.png)}
+.xh-menu-periphery li .selected{color:#ee5126}
+
+.xh-dec-table{border-spacing: 0;border-collapse: collapse;border-width: 0;position: absolute;top:200px;}
+.xh-dec-auto{background: rgba(38,38,38,0.81);}
+.xh-dec-table-auto{
+    padding: 0 .06rem;
+}
+.xh-dec-table-wrapper{
+    position: relative;
+    padding-left:.1rem;
+    padding-right:.1rem;
+    background: rgba(38,38,38,0.81);
+}
+.xh-dec-table-inner{position: relative;top:-.2rem;bottom:-.2rem;padding: 0 .2rem;}

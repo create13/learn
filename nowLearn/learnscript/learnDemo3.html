@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+		//	alert(Number.MIN_VALUE);   //最小值
+		//	alert(Number.MAX_VALUE);   //最大值
+		//	alert(Number.POSITIVE_INFINITY); //正无穷
+		//	alert(Number.NEGATIVE_INFINITY); //负无穷
+			
+		//	var box = 100e1000;
+			// alert(box);
+		//	alert(isFinite(box));
+		var box = 0/0;     //数学中第一个可以为0  第二个不能为0
+		var box1 = 12/0;    //正无穷
+		var box2= 0/12;    //0 
+		// alert(isNaN(box2));   //false
+		// alert(isNaN(NaN));   //true
+		// alert(isNaN(25));  //false
+		// alert(isNaN('25'));   //false
+		// alert(isNaN(true));   //false  true可以转换为1
+		// alert(isNaN(false));   //false false可以转换为0
+		
+		//如果对象的toString方法能够返回数值，那么久不是NaN了
+//		var box = {
+//			toString:function(){
+//				return "123";
+//			}
+//		}
+//		alert(isNaN(box));
+	//有3个函数可以把非数值转换成数值：Number(),parseInt()和parseFloat(),Number函数是转型函数，可以用于任何数据类型，	parseInt()和parseFloat()则是专门把字符串转成数值
+	// alert(Number(undefined))   NaN
+	// alert(Number(null))   0 空对象返回0
+	
+	// parseInt() 可识别八进制  16进制  不可识别其他类型
+	// parseInt(null) NaN
+	// parseInt(123lee) 123
+	// parseInt('lee123lee') NaN
+	// parseInt('9lee123lee') 9
+	//parseFloat() 只识别小数点后一位
+	//parseFloat(1.23e7) 12300000
+		</script>
+	</body>
+</html>

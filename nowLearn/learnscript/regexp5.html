@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			/*
+			 * 检查邮政编码
+			var str = "this is 216000"; //必须是6位 必须是数字 第一位不能为0  邮政编码
+			var patten = /[1-9][0-9]{5}/;
+			alert(patten.test(str));
+			alert(patten.exec(str));	
+			检查文件压缩包
+			var str = "2-13.zip"; //文件名可以是字母数字下划线   后缀可以是 .zip,gz,rar,7z
+			var patten =/^[\w]+\.zip|gz|rar/;//\w+,加上^来限定首字符开始匹配
+			alert(patten.exec(str));	
+			去掉空格
+			var str = "1111 222 333"; 
+			var patten = /\s/g;  //去掉空格
+			alert(str.replace(patten,""));
+			去掉前面空格
+			var str = " goo gle ";
+			var patten = /^\s+/;
+			var resault = str.replace(patten,"");
+			alert('|'+resault+'|');
+			去掉后面空格
+			var str = " goo gle ";
+			var patten = /\s+$/;
+			var resault = str.replace(patten,"");
+			alert('|'+resault+'|');
+			//去掉前后空格
+			var str = " goo gle ";  //(.+)是贪婪模式  (.+?)是惰性模式
+			var patten = /\s+(.+?)\s+$/;
+			var resault = patten.exec(str)[1];
+			alert('|'+resault+'|');
+			//去掉前后空格
+			var str = " goo gle ";  //(.+)是贪婪模式  (.+?)是惰性模式
+			var patten = /\s+(.+?)\s+$/;
+			var resault = str.replace(patten,"$1");  //使用的分组
+			alert('|'+resault+'|');
+			 */
+		//简单的验证电子邮件验证
+		var str = "13685829587@163.com";
+		var patten = /^([\w\.\-]+)@([\w\-]+)\.([a-zA-Z]{2,4})/;
+		alert(patten.exec(str)[1]);
+		</script>
+	</body>
+</html>

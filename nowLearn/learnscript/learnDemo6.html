@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>date</title>
+	</head>
+	<body>
+		<script>
+/*			var box =new Date();
+			alert(Date.parse('12/3/2017'));
+			var box1 = new Date(Date.parse('12/3/2017'));
+			alert(box1);
+			var box2 = new Date(1512230400000);
+			alert(box2);*/
+			// Date.parse()   //返回毫秒数
+/*			var box3 = new Date('12/3/2017');//依然调用
+			alert(box3);*/
+//			alert(Date.parse()); //没有传入日期格式参数 返回NaN
+//			var box = new Date('May 25,2007');
+//			alert(Date.UTC(2007,10));
+/*  			var box = new Date(2007,10,20,14,22,45,15);
+  			alert(box);*/
+  			var box = new Date(2007,10,20,14,22,45,15);
+//			alert(box);  //Tue Nov 20 2007 14:22:45 GMT+0800 (中国/*标准时间)
+//			alert('toString:'+box.toString());// toString:Tue Nov 20 2007 14:22:45 GMT+0800 (中国标准时间)
+//			alert('toLocaleString:'+box.toLocaleString());// toLocaleString:2007/11/20 下午2:22:45
+//			alert('valueOf:'+box.valueOf()); //valueOf:1195539765015   毫秒数
+/*  		alert(box.toDateString()); //标准时间年月日 
+  			alert(box.toTimeString()); // 标准时间年月日
+  			alert(box.toLocaleDateString());
+  			alert(box.toLocaleTimeString());
+  			alert(box.toUTCString());*/  // utc与中国标准时间相差8小时 早小时
+  			alert(box.getMonth()+1); //是准确的月份
+		</script>
+	</body>
+</html>

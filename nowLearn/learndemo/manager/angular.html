@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body ng-app="myApp" ng-controller="myCtrl">
+		<table>
+    <!-- 这里使用ng-repeat指令来重复数据生成表格 -->
+     <tr ng-repeat="subject in student.subjects">
+        <td>{{ subject.name }}</td>
+        <td>{{ subject.marks }}</td>
+     </tr>
+</table>
+<script>
+var app = angular.module("myApp", []);
+app.controller("myCtrl", function ($scope, $http) {
+	  $scope.student = {
+      firstName: "Terry",
+      lastName: "Lee",
+      fees:500,
+      subjects:[
+         {name:'编程语言基础',marks:90},
+         {name:'C语言',marks:85},
+         {name:'HTML/CSS',marks:61},
+		 {name:'Java',marks:85},
+		 {name:'NodeJS',marks:65}
+      ],
+      fullName: function() {
+         var studentObject;
+         studentObject = $scope.student;
+         return studentObject.firstName + " " + studentObject.lastName;
+      }
+   };
+});
+</script>
+	</body>
+</html>

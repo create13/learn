@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>String类型</title>
+	</head>
+	<body>
+		<script>
+		 	//5种数据类型 String Number Boolean Null Undefined Object 
+			//引号必须成对出现
+			//  alert('\x41');
+			var box = 10; 
+			// alert(box.toString());   //'10'
+			// alert(box.toString(2));   //'1010'  转换成2进制
+			// alert(box.toString(8));   //'12'		 转换成8进制
+			// alert(box.toString(10));   //'10'
+			// alert(box.toString(16));   //'a'
+			// undefined 和 null 不能被toString转换 只能被String强制转换 
+//			var box =null;
+//			alert(String(box))   // 'null'
+			// alert(typeof String(box)) 
+			// Object
+//			var box =new Object(); // 通过new创建一个对象
+//			alert(typeof box);
+	var box = new Object(2);
+//	alert(box); //2
+//	alert(typeof box) //object类型
+//var age = 100;
+//	alert(box + 100);  //102
+	
+//	var box = new Number()   //这种方法也是创建一个数值对象
+//	alert(typeof box);  //object类型
+//	var box = new String(123)   //这种方法也是创建一个数值对象
+//	alert(typeof box);  //object类型
+	//与 var box1 ='123'输出相同 就是类型不同  box1是string类型
+	// box是object类型
+	
+//	var box = '3' >'22' //如果两个都是数值字符串，那么会进行比较第一个字符  3 > 2  所以返回true
+//	var box = '123'>'22' false 1 > 2
+//
+//var box = null == 0   //返回false
+////null自动转换为0，但在比较运算的时候 null和undefined没有自动转换，所以null不等于0 
+//var box = '' == 0   true //''在比較的时候可以转换
+//	&&并且 两边都为true
+		</script>
+	</body>
+</html>

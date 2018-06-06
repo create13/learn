@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+	</head>
+	<body>
+		<ol class="breadcrumb newcrumb">
+    <li><a href="#"><span><i class="fa fontello-home-outline"></i></span>主页</a></li>
+    <li><a href="#!/BimProject/projectList">用户列表</a></li>
+    <li class="active">添加用户</li>
+</ol>
+<!-- 添加项目html -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">添加用户</h3>
+            </div>
+                       <form class="loginForm form-horizontal">
+                 <div class="form-group">
+                    <label class="col-lg-3 control-label tc"  for="facilityName"><span class="red">*</span>设备名称</label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control username" id="facilityName" placeholder="请输入名称" required >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label tc"  for="facilityType">设备类别</label>
+                    <div class="col-lg-9">
+                    	<select class="form-control username" id="facilityType">
+                 	         <option value="空调">空调</option>
+                 	         <option value="排给水">排给水</option>
+                 	         <option value="供配电">供配电</option>
+                 	         <option value="通风">通风</option>
+                 	         <option value="消防">消防</option>
+                 	         <option value="电梯">电梯</option>
+                 	         <option value="其他">其他</option>
+                    	</select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label tc"  for="specification"><span class="red">*</span>型号规格</label>
+                    <div class="col-lg-9">
+                    	<input type="text" class="form-control username" id="specification" placeholder="请输入型号规格" required >
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-lg-3 control-label tc"  for="location">设备位置</label>
+                    <div class="col-lg-9">
+                    	<select class="form-control username" id="location">
+                 	         <option value="地下1层">地下1层</option>
+                 	         <option value="地下2层">地下2层</option>
+                 	         <option value="地下3层">地下3层</option>
+                 	         <option value="地下4层">地下4层</option>
+                    	</select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label tc"  for="plannedDate"><span class="red">*</span>计划保养日期</label>
+                    <div class="col-lg-9">
+                    	<input type="text" class="form-control username" id="plannedDate" placeholder="请输入计划保养日期" readonly required >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label tc"  for="actualTime">实际完成日期</label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control username" id="actualTime" placeholder="请输入实际完成日期" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label tc"  for="maintenanceMan">保养人员</label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control username" id="maintenanceMan" placeholder="请输入保养人员">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label tc"  for="maintenanceManContact">保养人员联系方式</label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control username" id="maintenanceManContact" placeholder="请输入保养人员联系方式">
+                    </div>
+                </div>
+              <div class="form-group">
+                    <label class="col-lg-3 control-label tc"  for="notes">备注</label>
+                    <div class="col-lg-9">
+                    	<textarea  id="notes" placeholder="请输入备注" class="form-control" row="5"></textarea>
+                    	<input type="password"
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default saveBtn1">保存</button>
+            <button type="button" class="btn btn-default closedBtn1" data-dismiss="modal" >关闭</button>
+        </div>
+        </div>
+    </div>
+</div>
+	</body>
+</html>

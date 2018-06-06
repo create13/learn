@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="css/bootstrap.css" />
+		<script type="text/javascript" src="js/jquery-1.7.2.min.js" ></script>
+		<title></title>
+		<style>
+			.colorM{width:300px;height:300px;border:1px solid red;}
+		</style>
+	</head>
+	<body>
+		<button id="btn1">點我</button>
+		<div class="colorM"></div>
+	</body>
+	<script>
+	
+	$(function(){
+		
+		$("#btn1")[0].onclick =function(){
+			$(".colorM").css("backgroundColor","red")
+		};
+		
+		var dec = function(dom,dosth){
+			var c = $('#'+dom)[0];
+			var oldFn =c.onclick;
+			$("#"+dom)[0].onclick =function(){
+				oldFn();
+				dosth();
+			};
+		}
+		dec('btn1',function(){
+			alert(1111);
+		})	
+		dec('btn1',function(){
+			alert(2222);
+		})	
+		dec('btn1',function(){
+			setTimeout(function(){
+				$(".colorM").css("backgroundColor","yellow")	
+			},3030)
+			
+		})
+	})
+	document.write(location.protocol+"<br>");
+	document.write(location.host+"<br>");
+document.write(location.pathname+"<br>");
+
+
+	</script>
+</html>

@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>智慧建造信息平台</title>
+    <script src="../../dist_vue/plugin/jquery/jquery-2.2.3.min.js"></script>
+    <script src="../../dist_vue/plugin/vue/vue.js"></script>
+    <link href="../../dist_vue/plugin/iview/styles/iview.css" rel="stylesheet">
+    <script src="../../dist_vue/plugin/iview/iview.min.js"></script>
+    <style>
+        *{ padding: 0;margin: 0;letter-spacing: 1px;}
+        #app{padding: 10px;min-width: 1640px;}
+        .pointer{  cursor: pointer;  }
+        .leftMenu{  width: 250px;  margin: 0px auto;  }
+        .mar10{  margin-top: 5px;  padding-left: 15px;  }
+        .pointer span{  display: inline-block;  padding: 2px;  border-radius: 1px;  }
+        .pointer span:hover{  background-color: rgba(45,140,240,0.1);  }
+        .add-user{  margin-bottom: 10px;  float: right;  }
+        .add-user1{  margin-bottom: 10px;  margin-right: 10px;  float: right;  }
+        .add-user1 a{  color: #495060;  }
+        .row-is-admin td{  background-color: rgba(187,218,250, 0.1);  }
+        .ivu-checkbox-wrapper{  margin-right: 0;  }
+        .ivu-table-cell{  padding-left: 0;  padding-right: 0;  }
+    </style>
+</head>
+<body>
+<div id="app">
+    <Row>
+        <i-col :span="4" style="overflow: auto">
+            <div class="leftMenu">
+                <tabs value="name1" size="small">
+                    <tab-pane label="组织架构" name="name1">
+                        <tree :data="leftData" @on-select-change="searchCompany"></tree>
+                    </tab-pane>
+                    <tab-pane label="参建方" name="name3">
+                        <ul>
+                            <li class="pointer" @click="searchDivision()"><span>全部</span></li>
+                            <li class="pointer mar10" v-for="site in division.DivisionDatas" @click="searchDivision( site )"><span>[[site.name]]</span></li>
+                        </ul>
+                    </tab-pane>
+                    <tab-pane label="专业" name="name2">
+                        <ul>
+                            <li class="pointer" @click="searchMajor()"><span>全部</span></li>
+                            <li class="pointer mar10" v-for="site in leftMajorData" @click="searchMajor( site )"><span>[[site.name]]</span></li>
+                        </ul>
+                    </tab-pane>
+                </tabs>
+            </div>
+        </i-col>
+        <i-col :span="20" style="background-color: #fff;">
+            <i-button class="add-user" type="error" @click="deleteUser">删除</i-button>
+            <i-button class="add-user1" type="info">编辑</i-button>
+            <i-button class="add-user1" type="ghost"><a href="/xadmin/usermanager_vue/addusers/">添加用户</a></i-button>
+            <i-button class="add-user1" type="ghost" ><a href="/xadmin/usermanager_vue/batchUser/">导入现有用户</a></i-button>
+            <i-button class="add-user1" type="ghost" ><a href="/xadmin/usermanager_vue/guideusers/">导入模板</a></i-button>
+            <i-input v-model="searchValue" placeholder="用户名查找" style="width: 300px;margin-bottom:10px;" @on-change="find" icon="ios-search">
+            </i-input>
+            <div class="rightContent">
+                <i-table ref="selection" :columns="columns1" :data="dataTable" @on-selection-change="selectedChill"></i-table>
+                <page show-total :total="pages" :page-size="pageSize" @on-change="userTable" style="margin:20px auto;float:right;" show-elevator ref="page"></page>
+                <spin size="large" fix v-if="spinShow"></spin>
+            </div>
+        </i-col>
+    </Row>
+    <modal
+            v-model="reset"
+            title="重置密码"
+            @on-ok="resetOk"
+            @on-cancel="cancel">
+            <i-form ref="formCustom" :model="formCustom" :rules="ruleCustom" label-position="right" :label-width="100" style="margin-top: 20px;">
+                <form-item label="密码" prop="passwd">
+                    <i-input type="password" v-model="formCustom.passwd" style="width: 300px"></i-input>
+                </form-item>
+                <form-item label="确认密码" prop="passwdCheck">
+                    <i-input type="password" v-model="formCustom.passwdCheck" style="width: 300px"></i-input>
+                </form-item>
+            </i-form>
+    </modal>
+    <modal v-model="addRoleShow" title="添加角色" ok-text="确定" cancel-text="取消" width="450" @on-ok="addRoleTrue" @on-cancel="cancel">
+        <transfer
+                :data="rolenames"
+                :target-keys="targetKeys2"
+                filterable
+                :filter-method="filterMethod"
+                :list-style = "{height:'300px'}"
+                @on-change="handleChange2"></transfer>
+    </modal>
+    <modal v-model="division.addDivisionShow" title="修改参建方" ok-text="确定" cancel-text="取消" width="450" @on-ok="addDivision" @on-cancel="cancel">
+        <i-select v-model="division.targetDivision" style="width:300px" filterable>
+            <i-option v-for="divisiondata in division.DivisionDatas" :value="divisiondata.url" :key="divisiondata.id">[[ divisiondata.name]]</i-option>
+        </i-select>
+    </modal>
+</div>
+</body>
+<script>
+    var user = new Vue({
+        el:'#app',
+        delimiters:['[[',']]'],
+        data () {
+            const validatePass = (rule, value, callback) => {
+                if (value.length < 6 || value.length > 12) {
+                    callback(new Error('请输入6位-12位密码'));
+                } else {
+                    if (this.formCustom.passwdCheck !== '') {
+                        // 对第二个密码框单独验证
+                        this.$refs.formCustom.validateField('passwdCheck');
+                    }
+                    callback();
+                }
+            };
+            const validatePassCheck = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请确认密码'));
+                } else if (value !== this.formCustom.passwd) {
+                    callback(new Error('两次密码不一致'));
+                } else {
+                    callback();
+                }
+            };
+           return {
+               formCustom:{
+                   userId:'',
+                   passwd: '',
+                   passwdCheck: ''
+               },
+               ruleCustom:{
+                   passwd: [
+                       { required: true,validator: validatePass, trigger: 'blur' }
+                   ],
+                   passwdCheck: [
+                       { required: true,validator: validatePassCheck, trigger: 'blur' }
+                   ]
+               },
+               reset:false,
+               selectDele:[],
+               spinShow:false,
+               leftMajorData:[],
+               leftData:[],
+               dataTable:[],
+               columns1: [
+                   {
+                       type: 'selection',
+                       width: 60,
+                       align: 'center'
+                   },
+                   {
+                       title: '用户名',
+                       width: 120,
+                       key: 'name'
+                   },
+                   {
+                       title: '实际姓名',
+                       width: 120,
+                       key: 'truename'
+                   },
+                   {
+                       title: '联系方式',
+                       width: 150,
+                       key: 'contract'
+                   },
+                   {
+                       title: '所属企业',
+                       width:220,
+                       key: 'companyname'
+                   },
+                   {
+                       title: '专业',
+                       width:120,
+                       key: 'majorname'
+                   },
+                   {
+                       title:'参建方',
+                       width:120,
+                       render: (h , params) => {
+                           if(params.row.userdivisions.length > 0){
+                               return  h('Button', {
+                                           props: {
+                                               type:"ghost",
+                                               size:'small'
+                                           },
+                                           on: {
+                                               click: () => {
+                                                   this.division.targetDivision = params.row.userdivisions[0].division;
+                                                   this.setting = 1;
+                                                   this.division.onePersion = params;
+                                                   this.division.addDivisionShow = true;
+                                               }
+                                           }
+                                       },params.row.userdivisions[0].divisionname)
+                           } else {
+                              return  h('Button',{
+                                      props:{
+                                          icon:'ios-plus-empty',
+                                          type:'dashed',
+                                          size:'small'
+                                      },
+                                      on: {
+                                          click: () => {
+                                              this.setting = 0;
+                                              this.division.onePersion = params;
+                                              this.division.addDivisionShow = true;
+                                          }
+                                      }
+                                  },
+                                  '添加')
+                           }
+                       }
+                   },
+                   {
+                       title:'角色',
+                       render: (h, params) => {
+                           let nodes = [];
+//                           角色展现
+                           if( params.row.is_admin === true ) {
+                               nodes.push( h('tag',{
+                                               props:{
+                                                   type:'border',
+                                                   color:'red'
+                                               }
+                                           },
+                                           '管理员'));
+                           }
+                           if(params.row.userPrjRoles.length > 0){
+                               for(let i = 0;i < params.row.userPrjRoles.length ;i++){
+                                   nodes.push( h('tag',{
+                                       props: {
+                                           closable: true,
+                                           type:'border',
+                                           color:'blue'
+                                       },
+                                       on: {
+                                           "on-close": () => {
+                                               this.closeIndex = params.index;
+                                               this.closeIndex2 = i;
+                                               this.closeRole(params.row.userPrjRoles[i])
+                                           }
+                                       }
+                                   },params.row.userPrjRoles[i].rolename ))
+                               }
+                          }
+                           nodes.push( h('Button',{
+                               props:{
+                                   icon:'ios-plus-empty',
+                                   type:'dashed',
+                                   size:'small'
+                               },
+                               on: {
+                                   click: () => {
+                                       this.targetKeys2 = [];
+                                       this.nowPerson = params;
+                                       if(params.row.userPrjRoles.length > 0){
+                                           params.row.userPrjRoles.forEach(value => {
+                                               let temp = value.role.split("/");
+                                               this.targetKeys2.push(parseInt(temp[temp.length-2]));
+                                               this.targetKeysOld = this.targetKeys2;
+                                           });
+                                       }
+                                       this.addRoleShow = true;
+                                   }
+                               }
+                           },'添加角色'))
+                           return h('div', nodes );
+                       }
+                   },
+                   {
+                       title: '操作',
+                       width: 100,
+                       align: 'center',
+                       render: (h, params) => {
+                           return h('div', [
+                               h('Button', {
+                                   props: {
+                                       size: 'small'
+                                   },
+                                   on: {
+                                       click: () => {
+                                           this.formCustom.userId = params.row.id;
+                                           this.reset = true;
+                                       }
+                                   }
+                               }, '重置密码')
+                           ]);
+                       }
+                   }
+               ],
+               pageSize:15,
+               pages:0,
+               searchValue: null,
+               major:null,
+               company:null,
+               addRoleShow:false,
+               rolenames:this.getMockData(),
+               role:'',
+               targetKeys2:[],
+               targetKeysOld:[],
+               nowPerson:null,
+               closeIndex:null,
+               closeIndex2:null,
+               division:{
+                   DivisionDatas:[],
+                   targetDivision:null,
+                   addDivisionShow:false,
+                   onePersion:null,
+                   setting:0,
+                   divisionId:null
+               }
+           }
+        },
+        methods:{
+            addDivision () {
+                let that = this;
+                if(that.setting == 1){
+                    $.ajax({
+                        url:this.division.onePersion.row.userdivisions[0].url,
+                        dataType:"json",
+                        type:'put',
+                        data:{
+                            user: this.division.onePersion.row.url,
+                            division:this.division.targetDivision,
+                        },
+                        success:function( datas ){
+                            that.dataTable[that.division.onePersion.index].userdivisions = [];
+                            that.dataTable[that.division.onePersion.index].userdivisions.push(datas);
+                        },
+                        error:function () {
+                            console.log("加载失败");
+                        }
+                    });
+
+                } else {
+                    $.ajax({
+                        url:"/config/userdivisions/",
+                        dataType:"json",
+                        type:'post',
+                        data:{
+                            user: this.division.onePersion.row.url,
+                            division:this.division.targetDivision
+                        },
+                        success:function( datas ){
+                            that.dataTable[that.division.onePersion.index].userdivisions.push(datas);
+                        },
+                        error:function () {
+                            console.log("加载失败");
+                        }
+                    });
+                }
+            },
+            closeRole ( param ) {
+                let that = this;
+                $.ajax({
+                    url:param.url,
+                    dataType:"json",
+                    type:"DELETE",
+                    success:function( data ){
+                        that.$Message.success('删除成功');
+                        that.dataTable[that.closeIndex].userPrjRoles.splice(that.closeIndex2,1);
+                    },
+                    error:function () {
+                        console.log("加载失败");
+                    }
+                });
+            },
+            addRoleTrue () {
+                let that = this;
+                //删除已有的角色id,剩余新加id
+                for(let i = 0; i < that.targetKeysOld.length ; i++){
+                    for(let j = 0;j<that.targetKeys2.length; j++){
+                        if(that.targetKeysOld[i] == that.targetKeys2[j] ){
+                            let index = that.targetKeys2.indexOf( that.targetKeysOld[i] );
+                            if (index > -1) {
+                                that.targetKeys2.splice(index, 1);
+                            }
+                            break;
+                        }
+                    }
+                }
+                that.targetKeysOld = [];
+
+                $.ajax({
+                    url:"/config/adduserroles/",
+                    dataType:"json",
+                    type:"post",
+                    data:{
+                        userid: this.nowPerson.row.id,
+                        roles:JSON.stringify(this.targetKeys2)
+                    },
+                    success:function( datas ){
+                        if(datas.issuc === true){
+                            that.$Message.success('添加成功');
+                            console.log(that.dataTable);
+                            console.log(that.role)
+                            for(let i = 0; i < that.targetKeys2.length ; i++){
+                                for(let j = 0;j<that.role.length; j++){
+                                    if(that.targetKeys2[i] == that.role[j].id){
+                                        that.dataTable[that.nowPerson.index].userPrjRoles.push({
+                                            id:that.role[j].id,
+                                            role:that.role[j].url,
+                                            rolename:that.role[j].name,
+                                        })
+                                        break;
+                                    }
+                                }
+                            }
+                        }else {
+                            that.$Message.error('添加失败:' + datas.error );
+                            console.log( datas );
+                        }
+                    },
+                    error:function () {
+                        console.log("加载失败");
+                    }
+                });
+                //添加角色
+//                $.ajax({
+//                    url:"/config/adduserroles/",
+//                    dataType:"json",
+//                    type:"post",
+//                    data:{
+//                        userid: this.nowPerson.row.id,
+//                        roles:JSON.stringify(this.targetKeys2)
+//                    },
+//                    success:function( datas ){
+//                        if(datas.issuc === true){
+//                            that.$Message.success('添加成功');
+//                            console.log(that.dataTable);
+//                            console.log(that.role)
+//                            for(let i = 0; i < that.targetKeys2.length ; i++){
+//                                for(let j = 0;j<that.role.length; j++){
+//                                    if(that.targetKeys2[i] == that.role[j].id){
+//                                        that.dataTable[that.nowPerson.index].userPrjRoles.push({
+//                                            id:that.role[j].id,
+//                                            role:that.role[j].url,
+//                                            rolename:that.role[j].name,
+//                                        })
+//                                        break;
+//                                    }
+//                                }
+//                            }
+//                        }else {
+//                            that.$Message.error('添加失败:' + datas.error );
+//                            console.log( datas );
+//                        }
+//                    },
+//                    error:function () {
+//                        console.log("加载失败");
+//                    }
+//                });
+//                this.targetKeys2 = [];
+            },
+            resetOk () {
+                let that = this;
+                $.ajax({
+                    url:"/user/resetpwd/",
+                    dataType:"json",
+                    type:"post",
+                    data:{
+                        userid:this.formCustom.userId,
+                        password1:this.formCustom.passwd,
+                        password2:this.formCustom.passwdCheck
+                    },
+                    success:function( data ){
+                        if(data.issuc == true){
+                            that.$Message.success('重置成功');
+                        }
+                    },
+                    error:function () {
+                        console.log("加载失败");
+                    }
+                });
+            },
+            deleteUser () {
+                let that = this;
+                if( this.selectDele.length > 0){
+                    $.ajax({
+                        url:"/config/delprojectusers/",
+                        dataType:"json",
+                        type:"post",
+                        data:{
+                            users:JSON.stringify(this.selectDele)
+                        },
+                        success:function( data ){
+                            if(data.issuc == true){
+                                that.$Message.success('删除成功');
+                                that.userTable(1);
+                            }
+                        },
+                        error:function () {
+                            console.log("加载失败");
+                        }
+                    });
+                }else {
+                    this.$Message.warning('请选择成员再删除');
+                }
+            },
+            leftMenu () {
+                let that = this;
+                $.ajax({
+                    url:"/user/companytree/",
+                    dataType:"json",
+                    type:"get",
+                    success:function( datas ){
+                        that.leftData = datas;
+                    },
+                    error:function () {
+                        console.log("加载失败");
+                    }
+                });
+            },
+            leftMajor () {
+                let that = this;
+                $.ajax({
+                    url:"/user/majors/",
+                    dataType:"json",
+                    type:"get",
+                    data:{isAll : "True"},
+                    success:function( datas ){
+                        that.leftMajorData = datas.results;
+                    },
+                    error:function () {
+                        console.log("加载失败");
+                    }
+                });
+            },
+            userTable ( page ) {
+                let that = this;
+                $.ajax({
+                    url:"/user/users/",
+                    dataType:"json",
+                    type:"get",
+                    data:{
+                        isAll:'',
+                        company:that.company,
+                        major:that.major,
+                        search:that.searchValue,
+                        page:page,
+                        divisionId:that.division.divisionId
+                    },
+                    beforeSend:function(){
+                        that.spinShow = true;
+                    },
+                    success:function( datas ){
+                        that.spinShow = false;
+                        that.dataTable = datas.results;
+                        that.pages = datas.count;
+                    },
+                    error:function () {
+                        console.log("加载失败");
+                    }
+                });
+            },
+            searchMajor ( ele ) {
+                if(ele == '' ||ele == undefined||ele ==null){
+                    this.$refs.page.currentPage = 1;
+                    this.major = null;
+                    this.userTable(1);
+                }else {
+                    this.$refs.page.currentPage = 1;
+                    this.major = ele.id;
+                    this.userTable(1);
+                }
+            },
+            searchDivision ( division ) {
+                if(division == '' ||division == undefined||division ==null){
+                    this.$refs.page.currentPage = 1;
+                    this.division.divisionId = null;
+                    this.userTable(1);
+                }else {
+                    this.$refs.page.currentPage = 1;
+                    this.division.divisionId = division.id;
+                    this.userTable(1);
+                }
+            },
+            searchCompany ( event ) {
+                try{
+                    this.$refs.page.currentPage = 1;
+                    if(event[0].id === "all"){
+                        this.company = null;
+                        this.major = null;
+                        this.userTable(1);
+                    }else {
+                        this.company = event[0].id;
+                        this.userTable(1);
+                    }
+
+                }catch(e){
+                    this.company = null;
+                    this.major = null;
+                    this.userTable(1);
+                }
+
+            },
+            find ( event ) {
+                this.$refs.page.currentPage = 1;
+                this.searchValue = event.target.value;
+                this.userTable(1);
+            },
+            getMockData:function () {
+                let that =this;
+                let mockData = [];
+                $.ajax({
+                    url:"/config/roles/",
+                    dataType:"json",
+                    type:"get",
+                    data:{perPage: 999999 },
+                    success:function( datas ){
+                        that.role = datas.results;
+                        for (let i = 0; i < datas.results.length; i++) {
+                            mockData.push({
+                                key: datas.results[i].id,
+                                label: datas.results[i].name,
+                                description:  datas.results[i].url
+                            });
+                        }
+                    },
+                    error:function () {
+                        console.log("加载失败");
+                    }
+                });
+                return mockData;
+            },
+            getDivision () {
+                let that = this;
+                $.ajax({
+                    url:"/config/divisions/",
+                    dataType:"json",
+                    type:"get",
+                    data:{
+                        prePage:99999
+                    },
+                    success:function( datas ){
+                      that.division.DivisionDatas = datas.results;
+                    },
+                    error:function () {
+                        console.log("加载失败");
+                    }
+                });
+            },
+            handleChange2 (newTargetKeys) {
+                this.targetKeys2 = newTargetKeys;
+            },
+            filterMethod (data, query) {
+                return data.label.indexOf(query) > -1;
+            },
+            cancel () {
+                this.$refs.formCustom.resetFields();
+                this.targetKeys2 = [];
+                this.division.targetDivision = null;
+            },
+            selectedChill ( selection ) {
+                try{
+                    this.selectDele = [];
+                    for(let i = 0;i < selection.length; i ++){
+                        this.selectDele.push(selection[i].id);
+                    }
+                }
+                catch (e) {
+
+                }
+            },
+            editUser (params) {
+                sessionStorage.obj = JSON.stringify( params.row );
+                window.location.href="/xadmin/usermanager_vue/addusers/";
+            }
+        },
+        mounted:function () {
+            let that = this;
+            that.leftMenu();
+            that.leftMajor();
+            that.userTable(1);
+            that.getDivision();
+        }
+    })
+</script>
+</html>

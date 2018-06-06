@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>正则表达式测试方法</title>
+	</head>
+	<body>
+		<script>
+/*		1.	var box = new RegExp('Box'); //第一个参数是模式字符串
+			alert(box); // /Box/两个反斜杠是正则表达式的字面量表示法*/
+/*		2.	var box = new RegExp('Box','ig'); //第一个参数字符串,第二哥参数可选模式修饰符 无论顺序怎么写都是gi  g在前  g是全局匹配  m多行匹配 i忽略大小写
+			alert(box); // /Box/两个反斜杠是正则表达式的字面量表示法*/
+/*		3.var box=/Box/ig;   //字面量正则带修饰符的 比较常用
+		alert(box);*/
+/*		//4.测试正则表达式 test exec
+		var patten = new RegExp('Box');
+		var str = 'box';
+		alert(patten.test(str));   //返回false 因为大小写不一致*/
+/*		//5.
+		var patten = new RegExp('Box','i');
+		var str = 'box';
+		alert(patten.test(str));  //返回true 因为不区分大小写*/
+		//6.
+		//alert(/Box/i.test('box'));  //返回true,一句话匹配
+		/*//7.
+		var patten = /Box/i;    //不区分大小写匹配
+		var str = 'this is a box!';   //一句英文
+		alert(patten.test(str));  //true 字符串中是否包含模式中的正则 包含则返回true  就是说this is a box中是否包含不区分大小写的Box*/
+/*		//8.
+		var patten = /Box/i;
+		var str = 'box';
+		alert(patten.exec(str));   //返回box  typeof patten.exec(str)为object 说明返回的是对的 数组 有就返回数组的值 没有返回的就是null typeof null类型也是object */
+		
+/*		alert(document.body.clientWidth); //网页可见区域宽
+		alert(window.screen.width);  //屏幕分辨率宽*/
+		
+			
+		</script>
+	</body>
+</html>

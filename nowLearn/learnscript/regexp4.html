@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			/*
+			var patten = /^[a-z]+\s+[0-9]{4}$/;
+			var str = 'google 2012';
+			alert(str.match(patten)); //返回google 2012
+			alert(typeof patten.exec(str)); //数组	
+						var patten = /^[a-z]/; //只匹配到字母
+			var str = 'google 2012';
+			alert(str.match(patten));
+			alert(typeof patten.exec(str)); //只返回google的字符串数组
+						var patten = /^([a-z]+)\s([0-9]{4})$/;  //使用了分组
+			var str = 'google 2012';
+		var a = patten.exec(str);
+		alert(a.length);
+		alert(a[0]);  //返回匹配到的整个字符串
+		alert(a[1]);  //返回匹配搭配的第一个分组的字符串
+		alert(a[2]);  //返回匹配搭配的第二个分组的字符串
+		var patten = /(\d+)([a-z])/;  //这个叫捕获性分组，所有的分组都捕获返回
+		var str = '123abc';
+		var a = patten.exec(str);
+		//a[0]返回123a a[1]返回123 a[2]
+				var patten = /(\d+)(?:[a-z])/;  //非捕获性分组，只要在不需要捕获返回的分组上加上?:
+		var str = '123abc';
+		var a = patten.exec(str);
+		alert(a);  //返回123a 123
+				var patten = /(a?(b?(c?)))/;  //嵌套分组，从外往内获取
+		var str = 'abc';
+		var a = patten.exec(str);
+		alert(a); 
+		//第一步a[0] 整个匹配到的字符串 abc
+		//a[1]匹配第一个分组，abc
+		//a[2]匹配第二个分组，bc
+		//a[3]匹配第三个分组，c
+				var patten = /goo(?=gle)/;  //goo后面必须是gle才能返回goo,这里一定要注意，返回的是goo而不是google
+		var str = 'google';
+		var a = patten.exec(str);//返回goo,而不是google 这是前瞻性捕获
+		alert(a); //goo
+				var patten = /\[/;  //用\符号来转义正则里的特殊字符，才能匹配
+		var str = '[';
+		var a = patten.exec(str);
+		alert(a); 
+				var patten = /^\d+/gm; //限定了首匹配，并且开启换行模式
+		var str = '1.百度\n2.google\n3.bing';
+		alert(str.replace(patten,"#")); 
+		//#百度
+		//#google
+		//#bing
+			 * */
+
+		</script>
+
+	</body>
+</html> 

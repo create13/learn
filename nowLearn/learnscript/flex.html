@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>flex布局学习</title>
+		<style>
+			.wrap{width:900px;height:560px;border:1px solid red;display: flex;/*flex-direction:column;flex-wrap:wrap-reverse;*/flex-flow:row nowrap;align-items:center;justify-content:center;}
+			.wrap .cols{border:1px solid red;text-align:center;}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<p class="cols" style="order: 6;flex:1 1 auto;">1</p>
+			<p class="cols" style="order: 5;flex:1 1 auto;">2</p>
+			<p class="cols" style="order: 4;flex:1 1 200px;">3</p>
+			<p class="cols" style="order: 3;flex:1 1 auto;">4</p>
+			<p class="cols" style="order: 2;flex:1 1 auto;">5</p>
+			<p class="cols" style="order: 1;flex:1 1 auto;">6</p>
+		</div>
+	</body>
+</html>

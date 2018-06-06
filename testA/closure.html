@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			var fn=null;
+			function aa(){
+				var a=10;
+				function bb(){
+				console.log(a);
+				}
+				fn=bb;
+			}
+		function bar(){
+			fn();
+		}
+		aa();
+		bar();
+
+}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+	<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+	<style>
+		#table1 tr:nth-child(odd){background-color:#E3E3E3;}
+	</style>
+</head>
+<body ng-app="myApp" ng-controller="TreeController">
+<div class="c-group-r">
+    <div class="c-contest-tree-box fix">
+    	<a href="#"  ng-click="toggle()">点击</a>
+        <div class="tree" ng-show="visible" style="padding:20px;border:1px solid red;position:relative;">
+        	<img src="../manager/images/img_01.png" style="position:absolute;right:15px;top:10px;" ng-click="toggle()">
+            <ul style="list-style-type:none;">
+                <li ng-include="'Angular11.html'" data-name="file"></li>
+            </ul>
+			<div class="loading" ng-show="loadingSwitch">正在加载请稍等</div>
+        </div>
+    </div>
+</div>
+<script>
+	var myApp=angular.module("myApp",[]);
+	myApp.controller("TreeController",function($scope,$http){
+		$http.get("http://localhost:8082/BIMplatform/ad/queryFireAlarm.do").then(function(response){
+		$scope.tree=response.data.data;
+		console.log($scope.tree);
+
+		
+	});
+	$scope.visible=false;
+	$scope.toggle=function(){
+		$scope.visible=!$scope.visible
+	}
+	$scope.keyWorld="";
+	});
+//	$scope.file=function($scope, $http){
+//
+//			}
+</script>
+</body>
+</html>

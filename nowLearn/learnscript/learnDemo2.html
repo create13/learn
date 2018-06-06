@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>数据类型</title>
+	</head>
+	<body>
+		<script>
+			var box;
+		//	alert(typeof box);
+			//box 是Undefined类型，值是undefined，类型返回的字符串是undfined
+			var box1 = true;
+		//	alert(box1);
+			//box是Boolean类型,值是true,类型返回的字符串是boolean
+			var box2 = '2222';
+		//	alert(box2);
+			//box2是String类型 值是'222'  类型string
+			
+			//空的对象，表示这个对象创建了，里面没东西
+			//空对象，表示没有创建，就是null
+			var box3 = {};
+		//	alert(typeof box3);
+			//box3是Object类型，值是[objct Object] 类型返回的字符串是object
+			var box4 = null;
+		//	alert(typeof box4); 
+			//box4是Null类型，值是null，类型返回字符换是object
+			var box5 = new Object();
+		//	alert(box5);
+			//box5是Object类型，值是[objct Object] 类型返回的字符串是object
+			function box6(){
+				
+			}
+		//	alert(typeof box6);
+			//box6是Function函数 ，值是funtion box6(){},类型返回的字符串是function
+			alert(undefined == null);
+			var box7 = '';
+			if(box){     //条件语句里的()里必须是布尔值 true或false
+				alert('真');
+			}else{
+				alert('假');
+			}
+			
+			/*
+			 * var box = 250;   //十进制
+			 * var box1 = 070;   //八进制   56 前导必须是0，八进制序列（0~7）
+			 * var box2 = 079;   //无效八进制 不能有大于8的数  所以自动省略0   输出79      08 也是同样 返回 8 
+			 *  var box3 = 0xA； 十六进制 0x前导 后面是（0~9 以及A~F）
+			 * var x = 8.0; 自动转换为整型
+			 */
+		</script>
+	</body>
+</html>

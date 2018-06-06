@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>正则表达式的字符串方法</title>
+	</head>
+	<body>
+		<script>
+/*			//1.
+ * match 查找字符串 返回数组
+			var patten = /Box/ig;  //开启了全局 将所有匹配的字符串返回成数组
+			var str = 'this is a Box That is a Box';
+			alert(str.match(patten));  //返回Box,Box 如果没有开启全局 则匹配到第一个字符串 返回数组 即当var patten = /Box/i时 返回Box 返回的都是数组 可以用typeof验证 或者 var a = str.match(patten); alert(a[0]);可以验证*/
+/*			//2.search 查找字符串 返回位置 search方法查找到即返回 不需要全局g
+			var patten =/Box/i;
+			var str = 'this is a Box That is a Box';
+			alert(str.search(patten)); //返回10 找不到则返回-1*/
+/*			//3.replace替换匹配的数据
+			var patten =/Box/i;   //若开启全局 所有的匹配的字符串都会被替换
+			var str = 'this is a Box That is a Box';
+			alert(str.replace(patten,'Tom')); //第一个位置为模式 第二个模式为替换的内容*/
+/*			//4.split拆分
+			var patten =/!/i;
+			var str = 'this is a Box! That is a Box!';
+			alert(str.split(patten));  //返回三个数组this is a Box,That is a Box和空
+			alert(str.split(patten).length);  //为3
+			var patten1 =/ /i;
+			var str = 'this is a Box! That is a Box!';
+			alert(str.split(patten1));  //返回八个数组this,is,a,Box,That,is,a,Box
+			alert(str.split(patten1).length);  //为8*/
+			//5. 使用静态属性
+//			var patten = /(g)oogle/ig;
+//			var str = 'this is a google';
+//			patten.test(str);  //必须要执行一下静态属性才有效
+//			alert(RegExp.input); //this is a google
+//			alert(RegExp.leftContext);  //前子串 this is a
+//			alert(RegExp.rightContext);//右子串  ！ 
+//			alert(RegExp.lastMatch);  //匹配最后一次匹配到的 google
+//			alert(RegExp.lastParen);//匹配圆括号中的内容
+//			若var patten = /(g)oogle/i;则返回弹出的内容是g 
+//			alert(RegExp.multiline);
+			//6	
+			
+			
+		</script>
+	</body>
+</html>

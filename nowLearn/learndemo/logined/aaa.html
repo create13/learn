@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<p>aaaaa</p>
+		<p class="aa">i</p>
+		<script type="text/javascript" src="jquery.js" ></script>
+		<script type="text/javascript"> 
+		
+function isEmail(str){ 
+var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/; 
+return reg.test(str); 
+} 
+var str = 'test@hotmail.com'; 
+document.write(isEmail(str)+'<br />'); 
+var str2 = 'test@sima.vip.com'; 
+document.write(isEmail(str2)+'<br />'); 
+var str3 = 'te-st@qq.com.cn'; 
+document.write(isEmail(str3)+'<br />'); 
+var str4 = 'te_st@sima.vip.com'; 
+document.write(isEmail(str4)+'<br />'); 
+var str5 = 'te.._st@sima.vip.com'; 
+document.write(isEmail(str5)+'<br />'); 
+
+$(function(){
+	i=0;
+	$("p").click(function(){
+		 ++i;
+	})
+
+	
+})
+</script> 
+	</body>
+</html>

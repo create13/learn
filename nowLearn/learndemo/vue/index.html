@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://unpkg.com/vue"></script>
+	</head>
+	<body>
+		<div id="show1">
+			<p>{{message}}</p>
+			<p v-bind:title="message1"></p> 
+			<p v-if="seen">看到我</p> 
+			<p v-for="item in items">{{item.text}}</p> 
+			<button v-on:click="requireM">click me</button>
+			<p>{{me}}</p>
+			<input type="text" v-model="me" />
+		</div>
+    <script>
+				var show1=new Vue({
+				el:'#show1',
+				data:{
+					message:'hello lw',
+					message1:'hello lw' +new Date().toLocaleString(),
+					seen:true,
+					items:[{text:"first"},{text:"second"},{text:"third"}],
+					me:"it is me"
+				},
+				methods:{
+					requireM:function(){
+						this.message=this.message.split('').reverse().join('')
+				}
+			}
+			Vue.component('item-list',{
+				template:''
+			})
+})
+	</script>
+	</body>
+</html>
+

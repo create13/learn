@@ -1,0 +1,19 @@
+{
+	"index.html": {
+		"resources": [
+			"test.html"
+		],
+		"refer": [
+			"test.html"
+		]
+	},
+	"test.html": {
+		"resources": [
+			"index.html",
+			"js/jquery-1.8.3.min.js"
+		],
+		"refer": [
+			"index.html"
+		]
+	}
+}

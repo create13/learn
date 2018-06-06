@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>九屏展示</title>
+		<link rel="stylesheet" href="css/demonine.css" />
+		<style>
+			a.white{color:#fff;}
+		</style>
+	</head>
+	<body>
+	<div class="hideC">
+			<div class="hideBtn"></div>
+		<div class="hideBtn1"></div>
+	</div>
+	<div class="containT">
+		<table cellspacing="10">
+			<tr>
+				<td>
+					<a>
+					<p class="iconSet clickTz"> <i class="icon iconfont">&#xe611;</i></p>
+						<p class="fontWz">视频监控</p>
+						</a>
+				</td>
+				<td id="colorChange" class="">
+					<a>
+						<p class="iconSet"> <i class="icon iconfont">&#xe615;</i></p>
+						<p class="fontWz">消防</p>
+                    </a>
+				</td>
+				<td>
+					<a>
+					<p class="iconSet clickNt"> <i class="icon iconfont">&#xe6c8;</i></p>
+						<p class="fontWz">暖通</p>
+							</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p class="iconSet"> <i class="icon iconfont">&#xe600;</i></p>
+						<p class="fontWz">保安</p>
+				</td>
+				<td>
+					<p class="iconSet"> <i class="icon iconfont">&#xe609;</i></p>
+						<p class="fontWz">门禁</p>
+				</td>
+				<td>
+					<p class="iconSet"> <i class="icon iconfont">&#xe601;</i></p>
+						<p class="fontWz">电梯</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p class="iconSet"><i class="icon iconfont">&#xe610;</i></p>
+						<p class="fontWz">智能照明</p>
+				</td>
+				<td>
+					<p class="iconSet"><i class="icon iconfont">&#xe64e;</i></p>
+						<p class="fontWz">信息发布</p>
+				</td>
+				<td>
+					<p class="iconSet"><i class="icon iconfont">&#xe713;</i></p>
+					<p class="fontWz">能源中心</p>
+				</td>
+			</tr>
+		</table>
+	</div>	
+
+	<script type="text/javascript" src="js/jquery-1.8.3.min.js" ></script>
+	<script>
+
+	var set;
+    function changeColor(){
+    	if($("#colorChange").attr('class').indexOf('redbg')==0){
+    		$("#colorChange").removeClass('redbg');
+    	}else{
+    		$("#colorChange").addClass('redbg');
+    	}
+	}
+    	    
+    $(".hideBtn").click(function(){
+    	set=setInterval(changeColor,1000);//每隔3000毫秒执行一次changeColor函数
+    		$("#colorChange a").attr("href","http://localhost:8082/BIMplatform/modelView.html?rid=1");
+         
+    })
+    $(".hideBtn1").click(function(){
+  		clearInterval(set);
+    	$("#colorChange").removeClass('redbg');
+  		$("#colorChange a").removeAttr("href");
+  	});
+    
+    $(".clickTz").click(function(){
+    		window.location.href="demo-a.html";
+    })
+  		
+  	$(".clickNt").click(function(){
+    		window.location.href="demo-b.html";
+    })
+
+
+scene.getNode(hit.name + "geometry",function (material) {
+
+                            if(hisPick.name){
+                                scene.getNode(hisPick.name + "geometry", function (material) {
+                                	console.log('material',material);
+                                    material.setColor(hisPick.color);//之前点过的东西还原
+                                });
+                            }
+                            hisPick = {name:hit.name,color:material.getColor()}
+                            material.setColor({r: 0.03137255, g: 0.30980392, b: 0.62745098});
+                            var pTableScope= $('#pTable').scope();
+                            pTableScope.oid = hit.name;
+                            $.ajax({
+                          	  url:'./model/queryProperty.do',
+                          	  type:'GET',
+                          	  data:{oid:hit.name,rid:string}
+                            }).done(function(data){
+	                          	pTableScope.list = data.data
+								var dataC = eval(data.data[0]);
+								/*console.log(dataC.name);
+								console.log(dataC.propertiySet);
+								console.log(dataC.propertiySet[0].name);*/
+								$('#pTable').scope().$apply();
+								var dataD=dataC.propertiySet[0].name;
+								if(dataD=="风机材质"){
+									var infoF="<table class='tableA'><tr><td class='tableQ'>编号:</td><td class='tableW'>"+hit.name+"</td></tr><tr><td class='tableQ'>转速:</td><td class='tableW'>20000转/分</td></tr>" +
+									"<tr><td class='tableQ'>状态:</td><td class='tableW'>正常</td></tr><tr><td class='tableQ'>流量:</td><td class='tableW'>1000立方米/分钟</td></tr><tr><td class='tableQ'>压力:</td><td class='tableW'>1000-1300帕</td></tr>" +
+									"<tr><td class='tableQ'>功率:</td><td class='tableW'>1000kw</td></tr></table>";
+									QAQ.Dialog.alert(infoF,{title:'设施设备现场数据信息框'});
+								}else{
+									if(loc==1){
+										$.ajax({
+										    url:'model/queryOidByGlobalId.do',
+										    type:'get',
+										    data:{rid:1,globalId:"30FqTZ_lT4nPIzA6jyD8Sc"},
+										    success:function(data){
+											    if(hit.name==data.oid){
+													dialog1 = new QAQ.Dialog({
+												         backdrop: false,//默认点击dialog背景时 不关闭dialog
+												         keyboard: true,//默认 按键盘escape 关闭dialog
+												         title: "查看摄像头",
+												         content: '<video id="video" src="asset/video/Monitor02.mp4" autoplay="autoplay" loop="loop" controls style="width: 400px;margin-left: 10px;text-align: center;">当前浏览器不支持播放，请更换其他浏览器</video>',
+												         width: 420,//选填
+												         zIndex: 999,//
+												         cache: true,//是否对模板进行缓存
+												         modal: false, //是否显示遮罩
+												         drag: true,//是否可拖拽
+												         winResize: false,//浏览器缩放时是否重新定位
+												    });
+											    }
+										    }
+										)};
+									}
+					
+								}
+                   			});
+                    });
+	</script>
+	</body>
+</html>

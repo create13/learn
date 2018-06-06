@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js" ></script>
+		<style>
+.ui-paging-container {color: #666; font-size: 15px;}
+.ui-paging-container ul {overflow: hidden; text-align: center;}
+.ui-paging-container ul, .ui-paging-container li {list-style: none;}
+.ui-paging-container li {display: inline-block;padding: 3px 6px;margin-left: 5px;color: #666;}
+.ui-paging-container li a {color: #666; text-decoration: none; }
+.ui-paging-container li.ui-pager {cursor: pointer;border: 1px solid #ddd;border-radius: 2px;}
+.ui-paging-container li.ui-pager:hover, .ui-paging-container li.focus { background-color: #288df0;color: #FFFFFF;}
+.ui-paging-container li.ui-paging-ellipse {border: none;}
+.ui-paging-container li.ui-paging-toolbar {padding: 0;}
+.ui-paging-container li.ui-paging-toolbar select {height: 25px;border: 1px solid #ddd;color: #666;}
+.ui-paging-container li.ui-paging-toolbar input {line-height: 20px;height: 23px;padding: 0;border: 1px solid #ddd;text-align: center;width: 33px;margin: 0 0 0 5px;vertical-align: middle;}
+.ui-paging-container li.ui-paging-toolbar a {vertical-align: middle; text-decoration: none;display: inline-block;height: 23px;border: 1px solid #ddd;vertical-align: top;border-radius: 2px;line-height: 20px;padding: 0 3px;cursor: pointer;margin-left: 5px;color: #666;}
+.ui-paging-container li.ui-pager-disabled, .ui-paging-container li.ui-pager-disabled:hover {background-color: #f6f6f6;cursor: not-allowed;border: none;color: #ddd;}
+.ui-paging-container li.ui-pager-disabled a { color: #ddd;text-decoration: none;}
+		</style>
+		<title></title>
+	</head>
+	<body>
+		<div id="pager" class="ui-paging-container">
+  <ul>
+    <li class="ui-pager ui-pager-disabled" data-original-title="" title="">
+      <a><<</a>
+    </li>
+    <li class="ui-pager ui-pager-disabled" data-original-title="" title="">
+      <a><</a>
+    </li>
+    <li class="ui-pager focus" data-original-title="" title="">
+      <a>1</a>
+    </li>
+    <li class="ui-pager" data-original-title="" title="">
+      <a>2</a>
+    </li>
+    <li class="ui-pager" data-original-title="" title="">
+      <a>3</a>
+    </li>
+    <li class="ui-pager" data-original-title="" title="">
+      <a>4</a>
+    </li>
+    <li class="ui-pager" data-original-title="" title="">
+      <a>5</a>
+    </li>
+    <li class="ui-paging-ellipse" data-original-title="" title="">...</li>
+    <li class="ui-pager" data-original-title="" title="">
+      <a>10</a>
+    </li>
+    <li class="ui-pager" data-original-title="" title="">
+      <a>></a>
+    </li>
+    <li class="ui-pager" data-original-title="" title="">
+      <a>>></a>
+    </li>
+    <li class="ui-paging-toolbar" data-original-title="" title="">
+    <input class="ui-paging-count" type="text" id="txt_turn">
+      <a href="javascript:void(0)" id="btn_turn">跳转</a>
+    </li>
+  </ul>
+</div>
+	</body>
+</html>

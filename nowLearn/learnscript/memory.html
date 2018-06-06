@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>变量、作用域以及内存</title>
+		<script type="text/javascript" src="js/jquery-3.3.1.min.js" ></script>
+	</head>
+	<body>
+		<script>
+			/*
+			var box = new Object(); //或者写成{}
+			box.name = 'lee';   //添加一个属性
+			alert(box.name);			 
+			
+			//基本类型值添加属性  无法输出
+			var box = 'lee'; //基本类型值，是字符串
+			box.age = 28; //基本类型添加属性，很怪异
+			alert(box.age);  //不是引用类型 无法输出
+			 
+			var box = 'lee';
+			var box2 = box;
+			box2 = 'kkk';    //基本类型保持独立，box2的修改不会影响到box
+			alert(box2);
+			
+			var box = new Object();
+			box.name='lee';
+			var box2 = box;
+			box2.name = 'ww' //因为他们指向的是同一个object,同一个name,不管谁修改，大家都修改了  按照引用类型进行访问 在引用类型中，box2其实就是box 因为他们指向的是同一个对象，如果这个对象中的name属性被修改了 box2.name和box.name输出的至都会被相应修改掉了
+			alert(box.name);
+			alert(box2.name);
+			 
+
+			function box(num){  //按值传递
+				num += 10;
+				return num;
+			}
+			var num = 50;
+			alert(box(num));  //60
+			alert(num);   // 50  如果是按引用传递，那么函数里的num会成为类似全局变量，把外面的num替换掉，也就是说，最后输出60
+			
+			function box(obj){ //这里将要传递一个引用类型的参数，但是不是按引用传递，是按值传递的
+				obj.name = 'le';
+				var obj = new Object(); //所以 js没有按引用传参的功能，切忌不能把传递引用参数当作按引用传参
+				obj.name = 'kkk';
+			}
+			var obj = new Object();
+			box(obj);
+			alert(obj.name);
+			
+						
+			var box = "lee";
+			alert(typeof box);
+			
+			//检验引用类型时 用instanceof  检验基本类型时 用typeof
+			var box = [1,2,3];
+			alert(typeof box);
+			alert(box instanceof Array);  //判断是不是数组 是为true
+			var box2 = {};
+			alert(typeof box2);
+			alert(box2 instanceof Object);
+			var box3 = /g/;
+			alert(typeof box3);
+			alert(box3 instanceof RegExp);
+			var box4 = function(){}
+			alert(box4 instanceof Function);
+			
+			var box = "lee";
+			function setBox(){
+				return 123;
+			}
+			alert(box);  //全局变量，最外围，属于window属性
+			alert(setBox());//全局变量，最外围，属于window方法
+			
+			var box = "lee";
+			function setBox(){
+				var box = "red";  //这个是局部变量 它的范围在setBox里 出来就不认识了 去掉 var就变成全局变量了
+			}
+			alert(box);
+			
+			var box = "lee";
+			function setBox(box){ //通过传参，也是局部变量 作用域在setBox()范围下
+				alert(box);
+			}
+			setBox("red");
+			alert(box);
+			
+			
+			var box = "lee";
+			function setBox(box){   //setColor()方法的作用域在setBox()内
+				function setColor(){
+					var b = "kkk";  //b的作用域在setColor()里
+					alert(b);
+					return 123;
+
+
+				}
+//				alert(b);    //报错 因为b在setColor作用域下
+				return setColor();
+			}
+			alert(window.setBox());
+			
+			if(true){    //if语句的花括号没有作用域的功能
+				var box = "lee";
+			}
+			alert(window.box);
+
+			for(var i=0;i<10;i++){
+				var box = "lee";
+			} 
+			alert(i);    //全局
+			alert(box);
+			 */
+
+/*			var color = "aaa";
+			function say(){
+				var color = "bbb";
+				alert(this.color);   //aaa
+			}
+			say();*/
+		</script>
+	</body>
+</html>

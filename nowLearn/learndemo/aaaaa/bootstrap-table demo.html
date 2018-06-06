@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/bootstrap.css" />
+	</head>
+	<body>
+		<table id="searchTable" class="table table-hover table-bordered table-responsive"></table>
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js" ></script>
+		<script type="text/javascript" src="js/bootstrap.js" ></script>
+		<script type="text/javascript" src="js/bootstrap-table.js" ></script>
+		<script type="text/javascript" src="js/bootstrap-table-zh-CN.js" ></script>
+		<script>
+		function dataList(){
+		var windData = []; 
+        for ( var cot = 0; cot < 50; cot++) {
+    	 	var ranNumber=parseInt((Math.random()+1)*100000000);
+             var row_data = {
+                    "id":ranNumber,
+                    "status":"运行",
+                    "speed":"1000转/分钟",
+                    "traffic":"1000立方米/分钟",
+                    "pressure":"1000~3000Pa",
+                    "power":"100kw"
+                  }
+
+             windData.push(row_data);
+        }
+      	function fmtIdx1(value, row, index) {
+            return index+1;
+        }
+      	$('#searchTable').bootstrapTable('destroy');
+      	$('#searchTable').bootstrapTable({
+			showHeader:true,
+			width:600,
+			columns: [
+				{
+					field: 'index',
+					formatter:fmtIdx1,
+					title:'编号',
+					width:80
+				},{
+					field: 'id',
+					title: '风机编号',
+					width:80
+				},{
+					field: 'status',
+					title: '状态'
+				}, {
+					field: 'speed',
+					title: '转速'
+				}, {
+					field: 'traffic',
+					title: '流量'
+				},
+				{
+					field: 'pressure',
+					title: '压力'
+				},
+				 {
+					field: 'power',
+					title: '功率'
+				}
+				],
+			data:windData,
+			showColumns:false,
+			pagination:true,
+			cache: false,
+			striped: true,
+			pageNumber: 1,
+			pageSize: 10,
+			pageList: [5,10,15],
+			paginationHAlign: 'right', //right, left
+			paginationVAlign: 'bottom', //bottom, top, both
+			sortable:false,
+			search: false,
+			showPaginationSwitch: false,
+			showRefresh: false,
+			clickToSelect: false
+		});	
+	});
+	dataList();
+		</script>
+	</body>
+</html>

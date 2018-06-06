@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+	<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+	<style>
+		.aaaa{background-color:#0077CC;}
+	</style>
+</head>
+<body ng-app="myApp" ng-controller="TreeController">
+
+<div class="c-group-r" style="background:#fff;">
+    <div class="c-contest-tree-box fix">
+        <div class="tree">
+            <ul style="list-style-type:none;">
+                <li ng-repeat="data in tree" ng-include="'Angular11.html'" data-name="file"></li>
+            </ul>
+			<div class="loading" ng-show="loadingSwitch">正在加载请稍等</div>
+        </div>
+        <!--<div class="tree">
+            <ul>
+                <li ng-show="data.success==true" ng-repeat="data in tree" ng-include="'tree_item_renderer2.html'"></li>
+            </ul>
+            <div class="loading" ng-show="loadingSwitch">正在加载请稍等</div>
+        </div>-->
+    </div>
+</div>
+<script>
+	var myApp=angular.module("myApp",[]);
+	myApp.controller("TreeController",function($scope,$http){
+		$http.get("http://localhost:8082/BIMplatform/ad/queryFireAlarm.do").then(function(response){
+		$scope.tree=response.data.data;
+		console.log($scope.tree);
+
+		
+	});
+	});
+//	$scope.file=function($scope, $http){
+//
+//			}
+</script>
+</body>
+</html>

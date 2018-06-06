@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js" ></script>
+		<title></title>
+	</head>
+	<body>
+		<script>
+			$(document).keydown(function(){
+				if(event.keyCode == 187){
+					alert("++");
+				}
+				else if(event.keyCode == 189){
+					alert("--");
+				}
+			})
+			for (var i=1; i<=5; i++) { 
+    setTimeout( function timer() {
+        console.log(i);
+    }, i);
+}
+		</script>
+	</body>
+</html>

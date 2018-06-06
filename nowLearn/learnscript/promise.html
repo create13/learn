@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>promise用法</title>
+	</head>
+	<body>
+		<script>
+		
+					
+/*			//链式操作
+			function ar(){};
+			ar.prototype = {
+				set:function(val){
+					this.val = val;
+					return this;
+					
+				},
+				get:function(){
+					return this.val * 2;
+				}
+			}
+			var w = new ar();
+			alert(w.set(10).get());*/
+						
+			//promise用法
+/*			function runAsync(){
+    var p = new Promise(function(resolve, reject){
+        //做一些异步操作
+        setTimeout(function(){
+            console.log('执行完成');
+            resolve('随便什么数据');
+            reject('error');
+        }, 2000);
+    });
+    return p;            
+}
+runAsync();
+runAsync().then(function(data){
+	console.log(data);
+})*/
+
+//promise做法
+function res(){
+	var pro = new Promise(function(resolve,reject){
+		console.log("执行成功");
+		resolve("输出成功");
+		reject("失败");	
+	})
+	return pro;
+}
+
+res();
+res().then(function(data){
+	console.log(data);
+})
+		</script>
+	</body>
+</html>
